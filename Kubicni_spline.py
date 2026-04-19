@@ -6,11 +6,12 @@ import matplotlib.pyplot as plt
 # Postavke stranice
 st.set_page_config(page_title="Kubični Spline", layout="centered")
 
-# Naslov u LaTeX-u
-st.write(f"## {r'''\text{Izračun Kubičnog Splinea - Vedran Bošnjak}'''}")
+# Glavni naslov - popravljen prikaz
+st.latex(r"\text{Izračun Kubičnog Splinea - Vedran Bošnjak}")
 
 # --- INPUT SEKCIJA ---
-n = st.number_input("Unesite broj podataka:", min_value=3, value=4, step=1)
+# Labela za broj podataka u latexu
+n = st.number_input(r"$\text{Unesite broj podataka } (n):$", min_value=3, value=4, step=1)
 
 st.latex(r"\text{Unos koordinata:}")
 
@@ -18,12 +19,13 @@ podatci_input = []
 cols = st.columns(2)
 for i in range(n):
     with cols[0]:
-        x_val = st.number_input(f"x{i+1}:", key=f"x{i}", value=float(i))
+        # Indeksi u latexu za input polja
+        x_val = st.number_input(rf"$x_{{{i+1}}}:$", key=f"x{i}", value=float(i))
     with cols[1]:
-        y_val = st.number_input(f"y{i+1}:", key=f"y{i}", value=float(i**2 if i % 2 == 0 else i+1))
+        y_val = st.number_input(rf"$y_{{{i+1}}}:$", key=f"y{i}", value=float(i**2 if i % 2 == 0 else i+1))
     podatci_input.append((x_val, y_val))
 
-# Gumb za pokretanje
+# Gumb za pokretanje (tekst na gumbu ne podržava latex, ali možemo ga staviti u "caps")
 if st.button("IZRAČUNAJ"):
     
     # Sortiranje podataka
@@ -95,31 +97,32 @@ if st.button("IZRAČUNAJ"):
         st.latex(r"\text{RAČUN}")
         c1, c2 = st.columns(2)
         with c1:
-            st.latex(r"\textbf{Podatci:}")
+            st.latex(r"\text{Podatci:}")
             for i, p_val in enumerate(podatci):
-                st.latex(rf"T_{{{i+1}}} = {p_val}")
+                st.latex(rf"T_{{{i+1}}} = ({p_val[0]}, {p_val[1]})")
             
-            st.latex(r"\textbf{Koeficijenti } h:")
+            st.latex(r"\text{Koeficijenti } h:")
             for i, h_val in enumerate(lh):
                 st.latex(rf"h_{{{i+1}}} = {h_val}")
             
-            st.latex(r"\textbf{Koeficijenti } d:")
+            st.latex(r"\text{Koeficijenti } d:")
             for i, d_val in enumerate(ld):
                 st.latex(rf"d_{{{i+1}}} = {d_val}")
 
         with c2:
-            st.latex(r"\textbf{Koeficijenti } s:")
+            st.latex(r"\text{Koeficijenti } s:")
             for i, s_val in enumerate(ls):
                 st.latex(rf"s_{{{i+1}}} = {s_val}")
             
-            st.latex(r"\textbf{Koeficijenti } b:")
+            st.latex(r"\text{Koeficijenti } b:")
             for i, b_val in enumerate(lb):
                 st.latex(rf"b_{{{i+1}}} = {b_val}")
 
-        st.latex(r"\textbf{Matrica } H:")
+        st.latex(r"\text{Matrica } H:")
+        # Dataframe ostaje standardan jer streamlit tablice ne podržavaju latex render unutar ćelija
         st.dataframe(H_mat)
 
-        st.latex(r"\textbf{Matrica } r:")
+        st.latex(r"\text{Vektor } r:")
         st.dataframe(r_vec)
 
     except Exception as e:
