@@ -102,35 +102,57 @@ if st.button("IZRAČUNAJ"):
         st.pyplot(fig)
 
         # --- DETALJAN RAČUN ---
-        st.latex(r"\textbf{RAČUN}")
+                # --- DETALJAN RAČUN ---
+        st.markdown("<h3 style='text-align: center;'>DETALJAN RAČUN</h3>", unsafe_allow_html=True)
+        
         c1, c2 = st.columns(2)
+        
         with c1:
-            st.latex(r"\textbf{Podatci:}")
+            # Otvaramo div za lijevo poravnanje
+            st.markdown('<div style="text-align: left;">', unsafe_allow_html=True)
+            
+            # Grupiramo podatke
+            podatci_latex = r"\textbf{Podatci:}\\" + r"\begin{aligned}"
             for i, p_val in enumerate(podatci):
-                st.latex(rf"T_{{{i+1}}} = ({p_val[0]}, {p_val[1]})")
-            
-            st.latex(r"\textbf{Koeficijenti } h_k:")
+                podatci_latex += rf"T_{{{i+1}}} &= ({p_val[0]}, {p_val[1]}) \\"
+            podatci_latex += r"\end{aligned}"
+            st.latex(podatci_latex)
+
+            # Grupiramo h_k i d_k radi boljeg proreda
+            hk_dk_latex = r"\textbf{Koeficijenti } h_k \text{ i } d_k:\\" + r"\begin{aligned}"
             for i, h_val in enumerate(lh):
-                st.latex(rf"h_{{{i+1}}} = {h_val}")
+                hk_dk_latex += rf"h_{{{i+1}}} &= {h_val} & d_{{{i+1}}} &= {ld[i]} \\"
+            hk_dk_latex += r"\end{aligned}"
+            st.latex(hk_dk_latex)
             
-            st.latex(r"\textbf{Koeficijenti } d_k:")
-            for i, d_val in enumerate(ld):
-                st.latex(rf"d_{{{i+1}}} = {d_val}")
+            st.markdown('</div>', unsafe_allow_html=True)
 
         with c2:
-            st.latex(r"\textbf{Koeficijenti } s_k:")
-            for i, s_val in enumerate(ls):
-                st.latex(rf"s_{{{i+1}}} = {s_val}")
+            st.markdown('<div style="text-align: left;">', unsafe_allow_html=True)
             
-            st.latex(r"\textbf{Koeficijenti } b_k:")
-            for i, b_val in enumerate(lb):
-                st.latex(rf"b_{{{i+1}}} = {b_val}")
+            # Grupiramo s_k i b_k
+            sk_bk_latex = r"\textbf{Koeficijenti } s_k \text{ i } b_k:\\" + r"\begin{aligned}"
+            # Koristimo zip ili range da ih prikažemo paralelno radi uštede prostora
+            for i in range(len(ls)):
+                linija = rf"s_{{{i+1}}} &= {ls[i]}"
+                if i < len(lb): # b_k ima jedan manje od s_k obično
+                    linija += rf" & b_{{{i+1}}} &= {lb[i]}"
+                sk_bk_latex += linija + r"\\"
+            sk_bk_latex += r"\end{aligned}"
+            st.latex(sk_bk_latex)
+            
+            st.markdown('</div>', unsafe_allow_html=True)
 
-        st.latex(r"\textbf{Matrica } H:")
-        st.dataframe(H_mat)
+        # Matrica i vektor (ostavljamo st.dataframe jer je preglednije za velike sustave)
+            st.divider()
+            col_m1, col_m2 = st.columns([2, 1])
+            with col_m1:
+                st.latex(r"\textbf{Matrica } H")
+                st.dataframe(H_mat, use_container_width=True)
+            with col_m2:
+                st.latex(r"\textbf{Vektor } r")
+                st.dataframe(r_vec, use_container_width=True)
 
-        st.latex(r"\textbf{Vektor } r:")
-        st.dataframe(r_vec)
 
     except Exception as e:
         st.error(f"Greška: {e}")
