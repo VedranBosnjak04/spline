@@ -72,12 +72,21 @@ if st.button("IZRAČUNAJ"):
                   (y1 / h - s1 * h / 6) * (x2 - x) + (y2 / h - s2 * h / 6) * (x - x1))
              polinomi.append(expand(f))
 
-        # --- ISPIS FUNKCIJE S(x) ---
+                # --- ISPIS FUNKCIJE S(x) ---
         st.divider()
         st.latex(r"\text{KUBIČNI SPLINE}")
-        st.latex(r"S(x) =")
+        
+        # Konstrukcija "cases" okruženja za sve polinome
+        latex_kod = r"S(x) = \begin{cases} "
         for i in range(len(polinomi)):
-            st.latex(rf"{latex(polinomi[i].evalf(3))} , \quad {podatci[i][0]} \le x \le {podatci[i+1][0]}")
+            linija = rf"{latex(polinomi[i].evalf(3))} , & {podatci[i][0]} \le x \le {podatci[i+1][0]}"
+            # Dodajemo prijelaz u novi red (\\) ako nije zadnji polinom
+            if i < len(polinomi) - 1:
+                linija += r" \\ "
+            latex_kod += linija
+        latex_kod += r" \end{cases}"
+        
+        st.latex(latex_kod)
 
         # --- GRAF ---
         st.divider()
