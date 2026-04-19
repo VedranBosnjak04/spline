@@ -105,31 +105,31 @@ if st.button("IZRAČUNAJ"):
         st.latex(r"\text{RAČUN}")
         c1, c2 = st.columns(2)
         with c1:
-            st.latex(r"\text{Podatci:}")
+            st.latex(r"\textbf{Podatci:}")
             for i, p_val in enumerate(podatci):
                 st.latex(rf"T_{{{i+1}}} = ({p_val[0]}, {p_val[1]})")
             
-            st.latex(r"\text{Koeficijenti } h:")
+            st.latex(r"\textbf{Koeficijenti } h:")
             for i, h_val in enumerate(lh):
                 st.latex(rf"h_{{{i+1}}} = {h_val}")
             
-            st.latex(r"\text{Koeficijenti } d:")
+            st.latex(r"\textbf{Koeficijenti } d:")
             for i, d_val in enumerate(ld):
                 st.latex(rf"d_{{{i+1}}} = {d_val}")
 
         with c2:
-            st.latex(r"\text{Koeficijenti } s:")
+            st.latex(r"\textbf{Koeficijenti } s:")
             for i, s_val in enumerate(ls):
                 st.latex(rf"s_{{{i+1}}} = {s_val}")
             
-            st.latex(r"\text{Koeficijenti } b:")
+            st.latex(r"\textbf{Koeficijenti } b:")
             for i, b_val in enumerate(lb):
                 st.latex(rf"b_{{{i+1}}} = {b_val}")
 
-        st.latex(r"\text{Matrica } H:")
+        st.latex(r"\textbf{Matrica } H:")
         st.dataframe(H_mat)
 
-        st.latex(r"\text{Vektor } r:")
+        st.latex(r"\textbf{Vektor } r:")
         st.dataframe(r_vec)
 
     except Exception as e:
