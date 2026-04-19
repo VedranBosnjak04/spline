@@ -7,11 +7,11 @@ import matplotlib.pyplot as plt
 st.set_page_config(page_title="Kubični Spline", layout="centered")
 
 # --- NOVO ZAGLAVLJE ---
-st.latex(r"\huge \text{KUBIČNI SPLINE}")
-st.latex(r"\large \text{Izradio: Vedran Bošnjak}")
+st.latex(r"\huge \textbf{KUBIČNI SPLINE}")
+st.latex(r"\large \text{Izradio: Vedran Bošnjak} \\\\")
 
 # --- INPUT SEKCIJA ---
-n = st.number_input(r"$\text{Unesite broj podataka } (n):$", min_value=3, value=4, step=1)
+n = st.number_input(r"$\text{Unesite broj podataka }:$", min_value=3, value=4, step=1)
 
 st.latex(r"\text{Unos koordinata:}")
 
