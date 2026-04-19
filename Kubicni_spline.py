@@ -7,8 +7,8 @@ import matplotlib.pyplot as plt
 st.set_page_config(page_title="Kubični Spline", layout="centered")
 
 # --- NOVO ZAGLAVLJE ---
-st.latex(r"\huge \textbf{KUBIČNI SPLINE}")
-st.latex(r"\large \textit{Izradio: Vedran Bošnjak} \\\\")
+st.latex(r"\Large \textbf{KUBIČNI SPLINE}")
+st.latex(r"\normalsize \textit{Izradio: Vedran Bošnjak} \\\\")
 
 # --- INPUT SEKCIJA ---
 n = st.number_input(r"$\textbf{Unesite broj podataka }:$", min_value=3, value=4, step=1)
@@ -109,20 +109,20 @@ if st.button("IZRAČUNAJ"):
             for i, p_val in enumerate(podatci):
                 st.latex(rf"T_{{{i+1}}} = ({p_val[0]}, {p_val[1]})")
             
-            st.latex(r"\textbf{Koeficijenti } h:")
+            st.latex(r"\textbf{Koeficijenti } h_k:")
             for i, h_val in enumerate(lh):
                 st.latex(rf"h_{{{i+1}}} = {h_val}")
             
-            st.latex(r"\textbf{Koeficijenti } d:")
+            st.latex(r"\textbf{Koeficijenti } d_k:")
             for i, d_val in enumerate(ld):
                 st.latex(rf"d_{{{i+1}}} = {d_val}")
 
         with c2:
-            st.latex(r"\textbf{Koeficijenti } s:")
+            st.latex(r"\textbf{Koeficijenti } s_k:")
             for i, s_val in enumerate(ls):
                 st.latex(rf"s_{{{i+1}}} = {s_val}")
             
-            st.latex(r"\textbf{Koeficijenti } b:")
+            st.latex(r"\textbf{Koeficijenti } b_k:")
             for i, b_val in enumerate(lb):
                 st.latex(rf"b_{{{i+1}}} = {b_val}")
 
