@@ -95,13 +95,55 @@ if st.button("IZRAČUNAJ"):
         st.divider()
         st.header("------------------ KUBIČNI SPLINE ------------------")
         
-        st.write("### S(x) = {")
+        st.write("latex(S(x) = {)")
         for i in range(len(polinomi)):
             # LaTeX prikaz za matematičku ljepotu
             st.latex(rf"{latex(polinomi[i])} , \quad {podatci[i][0]:g} \le x \le {podatci[i+1][0]:g}")
-        st.write("### }")
+        st.write("latex(})")
 
         st.divider()
+
+        # --- NOVI DIO: CRTANJE GRAFA ---
+        st.divider()
+        st.header("📈 GRAF SPLINEA")
+        
+        # Priprema podataka za crtanje
+        x_puni = []
+        y_puni = []
+        
+        # Pretvaramo SymPy polinome u funkcije koje NumPy može brzo izračunati
+        for i in range(len(polinomi)):
+            polinom_funkcija = lambdify(x_sym, polinomi[i], modules=['numpy'])
+            
+            # Generiramo puno točaka između dvije zadane x koordinate
+            x_interval = np.linspace(podatci[i][0], podatci[i+1][0], 50)
+            y_interval = polinom_funkcija(x_interval)
+            
+            x_puni.extend(x_interval)
+            y_puni.extend(y_interval)
+            
+        # Kreiranje Matplotlib grafa
+        fig, ax = plt.figure(figsize=(10, 6)), plt.axes()
+        
+        # Crtamo spline krivulju
+        ax.plot(x_puni, y_puni, color='blue', label='Kubični Spline S(x)', linewidth=2)
+        
+        # Crtamo originalne točke
+        x_tocke = [p[0] for p in podatci]
+        y_tocke = [p[1] for p in podatci]
+        ax.scatter(x_tocke, y_tocke, color='red', label='Unesene točke T', s=100, zorder=5)
+        
+        # Uređivanje grafa
+        ax.set_title("Graf Kubičnog Splinea")
+        ax.set_xlabel("x")
+        ax.set_ylabel("y")
+        ax.grid(True, linestyle='--', alpha=0.7)
+        ax.legend()
+        
+        # Prikazujemo Matplotlib graf u Streamlitu
+        st.pyplot(fig)
+        # --- KRAJ NOVOG DIJELA ---
+        
         st.header("--------------------- RAČUN ---------------------")
         
         c1, c2 = st.columns(2)
