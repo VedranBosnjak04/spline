@@ -108,7 +108,7 @@ if st.button("IZRAČUNAJ"):
         
         c1, c2 = st.columns(2)
         
-                with c1:
+        with c1:
             st.markdown('<div style="text-align: left;">', unsafe_allow_html=True)
             
             # Podatci (x i y koordinate)
