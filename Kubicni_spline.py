@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 st.set_page_config(page_title="Kubični Spline", layout="centered")
 
 # --- NOVO ZAGLAVLJE ---
-st.latex(r"\Large \textbf{KUBIČNI SPLINE}")
+st.latex(r"\Large \textbf{SPLINE KALKULATOR}")
 st.latex(r"\normalsize \textit{Izradio: Vedran Bošnjak} \\\\")
 
 # --- INPUT SEKCIJA ---
