@@ -104,31 +104,34 @@ if st.button("IZRAČUNAJ"):
         # --- DETALJAN RAČUN ---
                 # --- DETALJAN RAČUN (LaTeX stil) ---
         st.divider()
-        st.latex(r"\text{ RAČUN}")
+        st.latex(r"\textbf{RAČUN}")
         
         c1, c2 = st.columns(2)
         
-        with c1:
+                with c1:
             st.markdown('<div style="text-align: left;">', unsafe_allow_html=True)
             
-            # Podatci
+            # Podatci (x i y koordinate)
             p_lat = r"\textbf{Podatci:}\\" + r"\begin{aligned}"
             for i, p_val in enumerate(podatci):
-                p_lat += rf"T_{{{i+1}}} &= ({p_val[0]}, {p_val[1]}) \\"
+                # Čistimo i x i y vrijednost
+                x_cist = "%g" % round(p_val[0], 3)
+                y_cist = "%g" % round(p_val[1], 3)
+                p_lat += rf"T_{{{i+1}}} &= ({x_cist}, {y_cist}) \\"
             p_lat += r"\end{aligned}"
             st.latex(p_lat)
 
             # Koeficijenti h
             h_lat = r"\textbf{Koeficijenti } h_k:\\" + r"\begin{aligned}"
             for i, h_val in enumerate(lh):
-                h_lat += rf"h_{{{i+1}}} &= {h_val} \\"
+                h_lat += rf"h_{{{i+1}}} &= {"%g" % round(h_val, 3)} \\"
             h_lat += r"\end{aligned}"
             st.latex(h_lat)
 
             # Koeficijenti d
             d_lat = r"\textbf{Koeficijenti } d_k:\\" + r"\begin{aligned}"
             for i, d_val in enumerate(ld):
-                d_lat += rf"d_{{{i+1}}} &= {d_val} \\"
+                d_lat += rf"d_{{{i+1}}} &= {"%g" % round(d_val, 3)} \\"
             d_lat += r"\end{aligned}"
             st.latex(d_lat)
             st.markdown('</div>', unsafe_allow_html=True)
@@ -139,14 +142,14 @@ if st.button("IZRAČUNAJ"):
             # Koeficijenti s
             s_lat = r"\textbf{Koeficijenti } s_k:\\" + r"\begin{aligned}"
             for i, s_val in enumerate(ls):
-                s_lat += rf"s_{{{i+1}}} &= {s_val} \\"
+                s_lat += rf"s_{{{i+1}}} &= {"%g" % round(s_val, 3)} \\"
             s_lat += r"\end{aligned}"
             st.latex(s_lat)
             
             # Koeficijenti b
             b_lat = r"\textbf{Koeficijenti } b_k:\\" + r"\begin{aligned}"
             for i, b_val in enumerate(lb):
-                b_lat += rf"b_{{{i+1}}} &= {b_val} \\"
+                b_lat += rf"b_{{{i+1}}} &= {"%g" % round(b_val, 3)} \\"
             b_lat += r"\end{aligned}"
             st.latex(b_lat)
             st.markdown('</div>', unsafe_allow_html=True)
