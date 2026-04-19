@@ -8,12 +8,12 @@ st.set_page_config(page_title="Kubični Spline", layout="centered")
 
 # --- NOVO ZAGLAVLJE ---
 st.latex(r"\huge \textbf{KUBIČNI SPLINE}")
-st.latex(r"\large \text{Izradio: Vedran Bošnjak} \\\\")
+st.latex(r"\large \textit{Izradio: Vedran Bošnjak} \\\\")
 
 # --- INPUT SEKCIJA ---
-n = st.number_input(r"$\text{Unesite broj podataka }:$", min_value=3, value=4, step=1)
+n = st.number_input(r"$\textbf{Unesite broj podataka }:$", min_value=3, value=4, step=1)
 
-st.latex(r"\text{Unos koordinata:}")
+st.latex(r"\textbf{Unos koordinata:}")
 
 podatci_input = []
 cols = st.columns(2)
@@ -74,7 +74,7 @@ if st.button("IZRAČUNAJ"):
 
                 # --- ISPIS FUNKCIJE S(x) ---
         st.divider()
-        st.latex(r"\text{KUBIČNI SPLINE}")
+        st.latex(r"\textbf{KUBIČNI SPLINE}")
         
         # Konstrukcija "cases" okruženja za sve polinome
         latex_kod = r"S(x) = \begin{cases} "
@@ -90,7 +90,7 @@ if st.button("IZRAČUNAJ"):
 
         # --- GRAF ---
         st.divider()
-        st.latex(r"\text{GRAF SPLINEA}")
+        st.latex(r"\textbf{GRAF SPLINEA}")
         fig, ax = plt.subplots(figsize=(10, 6))
         for i in range(len(polinomi)):
             func = lambdify(x, polinomi[i], modules=['numpy'])
@@ -102,7 +102,7 @@ if st.button("IZRAČUNAJ"):
         st.pyplot(fig)
 
         # --- DETALJAN RAČUN ---
-        st.latex(r"\text{RAČUN}")
+        st.latex(r"\textbf{RAČUN}")
         c1, c2 = st.columns(2)
         with c1:
             st.latex(r"\textbf{Podatci:}")
