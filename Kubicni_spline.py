@@ -107,7 +107,7 @@ if st.button("IZRAČUNAJ"):
         # --- NOVI DIO: CRTANJE GRAFA ---
         # --- NOVI DIO: CRTANJE GRAFA (Popravljen x_sym) ---
         st.divider()
-        st.header("📈 GRAF SPLINEA")
+        st.header("GRAF SPLINEA")
         
         x_puni = []
         y_puni = []
