@@ -94,13 +94,13 @@ if st.button("IZRAČUNAJ"):
 
         # --- UREDAN PRIKAZ REZULTATA ---
         st.divider()
-        st.header("------------------ KUBIČNI SPLINE ------------------")
+        st.header("KUBIČNI SPLINE")
         
-        st.write("latex(S(x) = {)")
+        st.write("S(x) = {")
         for i in range(len(polinomi)):
             # LaTeX prikaz za matematičku ljepotu
             st.latex(rf"{latex(polinomi[i])} , \quad {podatci[i][0]:g} \le x \le {podatci[i+1][0]:g}")
-        st.write("latex(})")
+        st.write("}")
 
         st.divider()
 
@@ -138,7 +138,7 @@ if st.button("IZRAČUNAJ"):
         
         st.pyplot(fig)
         
-        st.header("--------------------- RAČUN ---------------------")
+        st.header("RAČUN")
         
         c1, c2 = st.columns(2)
         c1, c2 = st.columns(2)
