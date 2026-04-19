@@ -104,7 +104,7 @@ if st.button("IZRAČUNAJ"):
         # --- DETALJAN RAČUN ---
                 # --- DETALJAN RAČUN (LaTeX stil) ---
         st.divider()
-        st.latex(r"\text{\huge RAČUN}")
+        st.latex(r"\text{ RAČUN}")
         
         c1, c2 = st.columns(2)
         
@@ -152,21 +152,21 @@ if st.button("IZRAČUNAJ"):
             st.markdown('</div>', unsafe_allow_html=True)
 
         # Matrica H u LaTeXu
-                # --- MATRICA H (LaTeX stil) ---
+                # --- MATRICA H (LaTeX stil - ČISTI PRIKAZ) ---
         st.markdown('<div style="text-align: left;">', unsafe_allow_html=True)
         
         # Generiranje LaTeX koda za matricu H
         h_matrix_latex = r"\textbf{Matrica } H = \begin{bmatrix} "
         for row in H_mat:
-            # Spajamo elemente reda s '&' za stupce
-            h_matrix_latex += " & ".join([f"{val:.3f}" for val in row]) + r" \\ "
+            # Koristimo %g koji miče nepotrebne nule (npr. 2.0 postane 2)
+            h_matrix_latex += " & ".join(["%g" % round(val, 3) for val in row]) + r" \\ "
         h_matrix_latex += r"\end{bmatrix}"
         st.latex(h_matrix_latex)
 
-        # --- VEKTOR r (Pravi stupac vektor) ---
+        # --- VEKTOR r (Pravi stupac vektor - ČISTI PRIKAZ) ---
         r_vector_latex = r"\textbf{Vektor } r = \begin{bmatrix} "
         for val in r_vec:
-            r_vector_latex += f"{val:.3f} \\\\ "  # Svaki element u novi red
+            r_vector_latex += "%g" % round(val, 3) + r" \\ "
         r_vector_latex += r"\end{bmatrix}"
         st.latex(r_vector_latex)
         
