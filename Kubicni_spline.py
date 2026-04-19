@@ -1,6 +1,6 @@
 import streamlit as st
 import numpy as np
-from sympy import symbols, expand, Poly, latex
+from sympy import symbols, expand, Poly, latex, lambdify
 
 # Postavke stranice za ljepši izgled
 st.set_page_config(page_title="Kubični Spline", layout="centered")
