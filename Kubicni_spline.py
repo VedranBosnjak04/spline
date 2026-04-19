@@ -152,23 +152,26 @@ if st.button("IZRAČUNAJ"):
             st.markdown('</div>', unsafe_allow_html=True)
 
         # Matrica H u LaTeXu
+                # --- MATRICA H (LaTeX stil) ---
         st.markdown('<div style="text-align: left;">', unsafe_allow_html=True)
         
-        # Generiranje LaTeX koda za matricu
+        # Generiranje LaTeX koda za matricu H
         h_matrix_latex = r"\textbf{Matrica } H = \begin{bmatrix} "
         for row in H_mat:
-            h_matrix_latex += " & ".join(map(str, row)) + r" \\ "
+            # Spajamo elemente reda s '&' za stupce
+            h_matrix_latex += " & ".join([f"{val:.3f}" for val in row]) + r" \\ "
         h_matrix_latex += r"\end{bmatrix}"
         st.latex(h_matrix_latex)
 
-        # Vektor r u LaTeXu
+        # --- VEKTOR r (Pravi stupac vektor) ---
         r_vector_latex = r"\textbf{Vektor } r = \begin{bmatrix} "
-        r_vector_latex += r" \\ ".join(map(str, r_vec))
-        r_vector_latex += r" \end{bmatrix}^T" # Transponirano da ne zauzima previše mjesta vertikalno
+        for val in r_vec:
+            r_vector_latex += f"{val:.3f} \\\\ "  # Svaki element u novi red
+        r_vector_latex += r"\end{bmatrix}"
         st.latex(r_vector_latex)
         
         st.markdown('</div>', unsafe_allow_html=True)
 
-
+        
     except Exception as e:
         st.error(f"Greška: {e}")
