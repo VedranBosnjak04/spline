@@ -17,9 +17,9 @@ podatci_input = []
 cols = st.columns(2)
 for i in range(n):
     with cols[0]:
-        x_val = st.number_input(f"x{i+1}:", key=f"x{i}", value=float(i)")
+        x_val = st.number_input(f"x{i+1}:", key=f"x{i}", value=float(i))
     with cols[1]:
-        y_val = st.number_input(f"y{i+1}:", key=f"y{i}", value=float(i**2)")
+        y_val = st.number_input(f"y{i+1}:", key=f"y{i}", value=float(i**2))
     podatci_input.append((round(x_val, 3), round(y_val, 3)))
 
 # Gumb za pokretanje
