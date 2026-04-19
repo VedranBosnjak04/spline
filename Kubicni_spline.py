@@ -11,7 +11,7 @@ st.latex(r"\Large \textbf{KUBIČNI SPLINE}")
 st.latex(r"\normalsize \textit{Izradio: Vedran Bošnjak} \\\\")
 
 # --- INPUT SEKCIJA ---
-n = st.number_input(r"$\textbf{Unesite broj podataka }:$", min_value=3, value=4, step=1)
+n = st.number_input(r"$\textbf{Unesite broj podataka:}$", min_value=3, value=4, step=1)
 
 st.latex(r"\textbf{Unos koordinata:}")
 
