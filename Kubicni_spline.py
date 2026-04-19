@@ -6,12 +6,13 @@ import matplotlib.pyplot as plt
 # Postavke stranice
 st.set_page_config(page_title="Kubični Spline", layout="centered")
 
-st.title("Izračun Kubičnog Splinea - Vedran Bošnjak")
+# Naslov u LaTeX-u
+st.write(f"## {r'''\text{Izračun Kubičnog Splinea - Vedran Bošnjak}'''}")
 
 # --- INPUT SEKCIJA ---
 n = st.number_input("Unesite broj podataka:", min_value=3, value=4, step=1)
 
-st.write("### Unos koordinata:")
+st.latex(r"\text{Unos koordinata:}")
 
 podatci_input = []
 cols = st.columns(2)
@@ -19,7 +20,7 @@ for i in range(n):
     with cols[0]:
         x_val = st.number_input(f"x{i+1}:", key=f"x{i}", value=float(i))
     with cols[1]:
-        y_val = st.number_input(f"y{i+1}:", key=f"y{i}", value=float(i**2 if i%2==0 else i+1))
+        y_val = st.number_input(f"y{i+1}:", key=f"y{i}", value=float(i**2 if i % 2 == 0 else i+1))
     podatci_input.append((x_val, y_val))
 
 # Gumb za pokretanje
@@ -36,7 +37,7 @@ if st.button("IZRAČUNAJ"):
         d = round((podatci[i][1] - podatci[i-1][1]) / h, 3)
         ld.append(d)
 
-    # POPRAVLJENA MATRICA H (Logika po indeksima)
+    # MATRICA H
     m_dim = len(podatci) - 2
     H_mat = np.zeros((m_dim, m_dim))
     r_vec = np.zeros(m_dim)
@@ -56,7 +57,7 @@ if st.button("IZRAČUNAJ"):
 
         lb = []
         for i in range(len(ld)):
-            b = ld[i] - (ls[i+1] + 2*ls[i]) * lh[i] / 6
+            b = ld[i] - (ls[i+1] + 2 * ls[i]) * lh[i] / 6
             lb.append(round(b, 3))
 
         x = symbols("x")
@@ -66,21 +67,20 @@ if st.button("IZRAČUNAJ"):
              x2, y2 = podatci[i+1]
              h, s1, s2 = lh[i], ls[i], ls[i+1]
 
-             f = ((s1/(6*h))*(x2 - x)**3 + (s2/(6*h))*(x - x1)**3 + 
-                  (y1/h - s1*h/6)*(x2 - x) + (y2/h - s2*h/6)*(x - x1))
+             f = ((s1 / (6 * h)) * (x2 - x)**3 + (s2 / (6 * h)) * (x - x1)**3 + 
+                  (y1 / h - s1 * h / 6) * (x2 - x) + (y2 / h - s2 * h / 6) * (x - x1))
              polinomi.append(expand(f))
 
         # --- ISPIS FUNKCIJE S(x) ---
         st.divider()
-        st.header("KUBIČNI SPLINE")
-        st.write("S(x) = ")
+        st.latex(r"\text{KUBIČNI SPLINE}")
+        st.latex(r"S(x) =")
         for i in range(len(polinomi)):
-            # Svaki red zaseban latex za stabilnost ispisa
             st.latex(rf"{latex(polinomi[i].evalf(3))} , \quad {podatci[i][0]} \le x \le {podatci[i+1][0]}")
 
         # --- GRAF ---
         st.divider()
-        st.header("GRAF SPLINEA")
+        st.latex(r"\text{GRAF SPLINEA}")
         fig, ax = plt.subplots(figsize=(10, 6))
         for i in range(len(polinomi)):
             func = lambdify(x, polinomi[i], modules=['numpy'])
@@ -91,35 +91,35 @@ if st.button("IZRAČUNAJ"):
         ax.grid(True, linestyle='--', alpha=0.6)
         st.pyplot(fig)
 
-        # --- TVOJI ORIGINALNI PODACI NA KRAJU ---
-        st.header("RAČUN")
+        # --- DETALJAN RAČUN ---
+        st.latex(r"\text{RAČUN}")
         c1, c2 = st.columns(2)
         with c1:
-            st.write("**Podatci:**")
+            st.latex(r"\textbf{Podatci:}")
             for i, p_val in enumerate(podatci):
-                st.write(f"T{i+1} = {p_val}")
+                st.latex(rf"T_{{{i+1}}} = {p_val}")
             
-            st.write("**Koeficijenti h:**")
+            st.latex(r"\textbf{Koeficijenti } h:")
             for i, h_val in enumerate(lh):
-                st.write(f"h{i+1} = {h_val}")
+                st.latex(rf"h_{{{i+1}}} = {h_val}")
             
-            st.write("**Koeficijenti d:**")
+            st.latex(r"\textbf{Koeficijenti } d:")
             for i, d_val in enumerate(ld):
-                st.write(f"d{i+1} = {d_val}")
+                st.latex(rf"d_{{{i+1}}} = {d_val}")
 
         with c2:
-            st.write("**Koeficijenti s:**")
+            st.latex(r"\textbf{Koeficijenti } s:")
             for i, s_val in enumerate(ls):
-                st.write(f"s{i+1} = {s_val}")
+                st.latex(rf"s_{{{i+1}}} = {s_val}")
             
-            st.write("**Koeficijenti b:**")
+            st.latex(r"\textbf{Koeficijenti } b:")
             for i, b_val in enumerate(lb):
-                st.write(f"b{i+1} = {b_val}")
+                st.latex(rf"b_{{{i+1}}} = {b_val}")
 
-        st.write("**Matrica H:**")
+        st.latex(r"\textbf{Matrica } H:")
         st.dataframe(H_mat)
 
-        st.write("**Matrica r:**")
+        st.latex(r"\textbf{Matrica } r:")
         st.dataframe(r_vec)
 
     except Exception as e:
