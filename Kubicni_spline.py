@@ -5,26 +5,25 @@ from sympy import symbols, expand, Poly, latex
 # Postavke stranice za ljepši izgled
 st.set_page_config(page_title="Kubični Spline", layout="centered")
 
-st.title("📊 Izračun Kubičnog Splinea")
+st.title("Izračun Kubičnog Splinea - Vedran Bošnjak")
 
 # --- INPUT SEKCIJA ---
 # Umjesto while True, koristimo brojčani unos
 n = st.number_input("Unesite broj podataka:", min_value=4, value=4, step=1)
 
 st.write("### Unos koordinata:")
-st.info("Savjet: x koordinate moraju biti različite i poredane (program će ih sam sortirati).")
 
 podatci_input = []
 cols = st.columns(2)
 for i in range(n):
     with cols[0]:
-        x_val = st.number_input(f"x{i+1}:", key=f"x{i}", value=float(i), format="%.3f")
+        x_val = st.number_input(f"x{i+1}:", key=f"x{i}", value=float(i)")
     with cols[1]:
-        y_val = st.number_input(f"y{i+1}:", key=f"y{i}", value=float(i**2), format="%.3f")
+        y_val = st.number_input(f"y{i+1}:", key=f"y{i}", value=float(i**2)")
     podatci_input.append((round(x_val, 3), round(y_val, 3)))
 
 # Gumb za pokretanje
-if st.button("🚀 IZRAČUNAJ"):
+if st.button("IZRAČUNAJ"):
     
     # --- TVOJ ORIGINALNI KOD (NEPROMIJENJEN) ---
     podatci = sorted(podatci_input, key=lambda t: t[0])
@@ -106,23 +105,28 @@ if st.button("🚀 IZRAČUNAJ"):
         st.header("--------------------- RAČUN ---------------------")
         
         c1, c2 = st.columns(2)
+        c1, c2 = st.columns(2)
         with c1:
             st.write("**Podatci:**")
             for i, p_val in enumerate(podatci):
                 st.write(f"T{i+1} = {p_val}")
             
             st.write("**Koeficijenti h:**")
-            st.write(lh)
+            for i, h_val in enumerate(lh):
+                st.write(f"h{i+1} = {h_val}")
             
             st.write("**Koeficijenti d:**")
-            st.write(ld)
+            for i, d_val in enumerate(ld):
+                st.write(f"d{i+1} = {d_val}")
 
         with c2:
             st.write("**Koeficijenti s:**")
-            st.write(ls)
+            for i, s_val in enumerate(ls):
+                st.write(f"s{i+1} = {s_val}")
             
             st.write("**Koeficijenti b:**")
-            st.write(lb)
+            for i, b_val in enumerate(lb):
+                st.write(f"b{i+1} = {b_val}")
 
         st.write("**Matrica H:**")
         st.dataframe(np.array(H))
