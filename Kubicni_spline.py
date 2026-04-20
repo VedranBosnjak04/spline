@@ -8,7 +8,7 @@ st.set_page_config(page_title="Kubični Spline", layout="centered")
 
 # --- NOVO ZAGLAVLJE ---
 st.latex(r"\Large \textbf{SPLINE KALKULATOR}")
-st.latex(r"\normalsize \mathsf{Izradio: Vedran Bošnjak} \\\\")
+st.latex(r"\normalsize \mathsf{Izradio: Vedran\ Bošnjak} \\\\")
 
 # --- INPUT SEKCIJA ---
 n = st.number_input(r"$\textbf{Unesite broj podataka:}$", min_value=3, value=4, step=1)
