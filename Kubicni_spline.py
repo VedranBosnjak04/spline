@@ -11,7 +11,6 @@ st.latex(r"\Large \textbf{SPLINE KALKULATOR}")
 st.latex(r"\normalsize \mathsf{Izradio: Vedran\ Bošnjak} \\[10pt]")
 
 # --- INPUT SEKCIJA ---
-# Vraćeno na min_value=4
 n = st.number_input(r"$\textbf{Unesite broj podataka:}$", min_value=4, value=4, step=1)
 
 st.latex(r"\begin{aligned}&\textbf{Unos koordinata:}\end{aligned}")
@@ -34,9 +33,9 @@ if st.button("IZRAČUNAJ"):
     lh = []
     ld = []
     for i in range(1, len(podatci)):
-        h = round(podatci[i][0] - podatci[i-1][0], 3)
+        h = podatci[i][0] - podatci[i-1][0]   # ❌ maknut round
         lh.append(h)
-        d = round((podatci[i][1] - podatci[i-1][1]) / h, 3)
+        d = (podatci[i][1] - podatci[i-1][1]) / h   # ❌ maknut round
         ld.append(d)
 
     # MATRICA H
@@ -55,14 +54,12 @@ if st.button("IZRAČUNAJ"):
     try:
         ls_mid = np.linalg.solve(H_mat, r_vec)
         ls = np.concatenate(([0], ls_mid, [0]))
-        ls = [round(val, 3) for val in ls]
+        # ❌ maknut round ovdje
 
         lb = []
         for i in range(len(ld)):
-            # Formula sa slike: b_k = d_k - (s_k - s_{k-1}) * h_k / 6
-            # U kodu: i je k-1, pa je ls[i+1] zapravo s_k, a ls[i] je s_{k-1}
             b = ld[i] - (ls[i+1] - ls[i]) * lh[i] / 6
-            lb.append(round(b, 3))
+            lb.append(b)  # ❌ maknut round
 
         x = symbols("x")
         polinomi = []
