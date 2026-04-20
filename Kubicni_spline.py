@@ -13,7 +13,7 @@ st.latex(r"\normalsize \mathsf{Izradio: Vedran\ Bošnjak} \\[10pt]")
 # --- INPUT SEKCIJA ---
 n = st.number_input(r"$\textbf{Unesite broj podataka:}$", min_value=3, value=4, step=1)
 
-st.latex(r"\textbf{Unos koordinata:}")
+st.latex(r"\begin{aligned}{l}\textbf{Unos koordinata:}\end{aligned}")
 
 podatci_input = []
 cols = st.columns(2)
