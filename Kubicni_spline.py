@@ -161,46 +161,5 @@ if st.button("IZRAČUNAJ"):
         st.latex(r_vector_latex)
         st.markdown('</div>', unsafe_allow_html=True)
 
-        # --- CIJELI POSTUPAK NA KRAJU (KAO JEDAN BLOK) ---
-        st.divider()
-        st.latex(r"\textbf{CIJELI POSTUPAK}")
-        
-        postupak_latex = r"\begin{aligned}"
-        
-        # h_k
-        postupak_latex += r"\text{Račun } h_k:\\"
-        for i in range(1, len(podatci)):
-            x0, _ = podatci[i-1]
-            x1, _ = podatci[i]
-            postupak_latex += rf"h_{{{i}}} = x_{{{i+1}}} - x_{{{i}}} = {x1} - {x0} = {lh[i-1]} \\"
-        
-        # d_k
-        postupak_latex += r"\text{Račun } d_k:\\"
-        for i in range(1, len(podatci)):
-            x0, y0 = podatci[i-1]
-            x1, y1 = podatci[i]
-            postupak_latex += rf"d_{{{i}}} = \frac{{{y1} - {y0}}}{{{lh[i-1]}}} = {ld[i-1]} \\"
-        
-        # r_k
-        postupak_latex += r"\text{Račun } r_k:\\"
-        for i in range(len(r_vec)):
-            postupak_latex += rf"r_{{{i+1}}} = 6({ld[i+1]} - {ld[i]}) = {"%g" % round(r_vec[i],3)} \\"
-        
-        # s_k
-        postupak_latex += r"\text{Rješenje sustava } s_k:\\"
-        for i, val in enumerate(ls):
-            postupak_latex += rf"s_{{{i+1}}} = {val} \\"
-        
-        # b_k
-        postupak_latex += r"\text{Račun } b_k:\\"
-        for i in range(len(lb)):
-            postupak_latex += (
-                rf"b_{{{i+1}}} = {ld[i]} - \frac{{({ls[i+1]} - {ls[i]}) \cdot {lh[i]}}}{{6}} = {lb[i]} \\"
-            )
-        
-        postupak_latex += r"\end{aligned}"
-        
-        st.latex(postupak_latex)
-
     except Exception as e:
         st.error(f"Greška: {e}")
