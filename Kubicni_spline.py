@@ -59,7 +59,9 @@ if st.button("IZRAČUNAJ"):
 
         lb = []
         for i in range(len(ld)):
-            b = ld[i] - (ls[i+1] + 2 * ls[i]) * lh[i] / 6
+            # Formula sa slike: b_k = d_k - (s_k - s_{k-1}) * h_k / 6
+            # U kodu: i je k-1, pa je ls[i+1] zapravo s_k, a ls[i] je s_{k-1}
+            b = ld[i] - (ls[i+1] - ls[i]) * lh[i] / 6
             lb.append(round(b, 3))
 
         x = symbols("x")
